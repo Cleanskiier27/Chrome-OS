@@ -1,0 +1,5 @@
+# Never commit the internal contents of a .git directory.
+# (This repository previously had stray git-internal files such as
+# HEAD, config, config.txt, description, hooks/, and info/ committed
+# by mistake at the repository root.)
+.git/
