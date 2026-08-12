@@ -1,36 +1,53 @@
+# Vertex AI Studio Frontend App with Node.js Backend
 
+This repository contains a frontend and a Node.js backend, designed to run together.
+The backend acts as a proxy, handling Google Cloud API calls.
 
-[agent.chat.agent.md](https://github.com/user-attachments/files/30456975/agent.chat.agent.md)<Project>
-	<!-- Load the correct workload depending on the TargetPlatformVersion -->
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true' And $([MSBuild]::VersionEquals($(TargetFrameworkVersion), '10.0')) And '$(TargetPlatformVersion)' == '26.0'">
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net10.0_26.0" />
-	</ImportGroup>
+This project is intended for demonstration and prototyping purposes only.
+It is not intended for use in a production environment.
 
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true' And $([MSBuild]::VersionEquals($(TargetFrameworkVersion), '9.0')) And '$(TargetPlatformVersion)' == '18.0'">
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net9.0_18.0" />
-	</ImportGroup>
+## Prerequisites
 
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true' And $([MSBuild]::VersionEquals($(TargetFrameworkVersion), '9.0')) And '$(TargetPlatformVersion)' == '26.0'">
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net9.0_26.0" />
-	</ImportGroup>
+To run this application locally, you need:
 
-	<!-- If no TargetPlatformVersion is specified, load a default workload depending on the target framework version, and that workload will validate the TargetPlatformVersion value and show an error if applicable -->
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true' And $([MSBuild]::VersionEquals($(TargetFrameworkVersion), '10.0'))">
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net10.0_26.0" />
-	</ImportGroup>
+*   **[Google Cloud SDK / gcloud CLI](https://cloud.google.com/sdk/docs/install)**: Follow the instructions to install the SDK.
 
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true' And $([MSBuild]::VersionEquals($(TargetFrameworkVersion), '9.0'))">
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net9.0_26.0" />
-	</ImportGroup>
+*   **gcloud Initialization**:
+    *   Initialize the gcloud CLI:
+        ```bash
+        gcloud init
+        ```
+    *   Authenticate for Application Default Credentials (needed to call Google Cloud APIs):
+        ```bash
+        gcloud auth application-default login
+        ```
 
-	<!-- Detect if the target framework version is outside our supported range, and show the corresponding error -->
-	<ImportGroup Condition=" '$(TargetPlatformIdentifier)' == 'tvOS' And '$(UsingAppleNETSdk)' != 'true'">
-		<Import Project="Sdk-eol.props" Sdk="Microsoft.tvOS.Sdk.net10.0_26.0" Condition=" $([MSBuild]::VersionLessThan($(TargetFrameworkVersion), '9.0'))" />
-		<Import Project="Sdk.props" Sdk="Microsoft.tvOS.Sdk.net10.0_26.0" Condition=" $([MSBuild]::VersionGreaterThan($(TargetFrameworkVersion), '10.0'))" />
-	</ImportGroup>
+*   **Node.js and npm**: Ensure you have Node.js and its package manager, `npm`, installed on your machine.
 
-	<ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(TargetFrameworkVersion), '6.0')) ">
-		<SdkSupportedTargetPlatformIdentifier Include="tvos" DisplayName="tvOS" />
-	</ItemGroup>
-</Project>
+## Project Structure
 
+The project is organized into two main directories:
+
+*   `frontend/`: Contains the Frontend application code.
+*   `backend/`: Contains the Node.js/Express server code to proxy Google Cloud API calls.
+
+## Backend Environment Variables
+
+The `backend/.env.local` file is automatically generated when you download this application.
+It contains essential Google Cloud environment variables pre-configured based on your project settings at the time of download.
+
+The variables set in `backend/.env.local` are:
+*   `API_BACKEND_PORT`: The port the backend API server listens on (e.g., `5000`).
+*   `API_PAYLOAD_MAX_SIZE`: The maximum size of the request payload accepted by the backend server (e.g., `5mb`).
+*   `GOOGLE_CLOUD_LOCATION`: The Google Cloud region associated with your project.
+*   `GOOGLE_CLOUD_PROJECT`: Your Google Cloud Project ID.
+
+**Note:** These variables are automatically populated during the download process.
+You can modify the values in `backend/.env.local` if you need to change them.
+
+## Installation and Running the App
+
+To install dependencies and run your Google Cloud Vertex AI Studio App locally, execute the following command:
+
+```bash
+npm install && npm run dev
