@@ -4,6 +4,7 @@ export interface DataPoint {
   impressions: number;
   ctr: number;
   position: number;
+  conversions: number;
 }
 
 export interface Query {
@@ -12,6 +13,7 @@ export interface Query {
   impressions: number;
   ctr: number;
   position: number;
+  conversions: number;
 }
 
 export interface ActiveMetrics {
@@ -19,4 +21,14 @@ export interface ActiveMetrics {
   impressions: boolean;
   ctr: boolean;
   position: boolean;
+  conversions: boolean;
+}
+
+export interface DashboardSummary {
+  totalClicks: number;
+  totalImpressions: number;
+  totalConversions: number;
+  avgCtr: number;
+  avgPosition: number;
+  conversionRate: number;
 }

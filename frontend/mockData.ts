@@ -24,6 +24,7 @@ export const generateMockData = (): DataPoint[] => {
     const clicks = Math.max(10, Math.floor(baseClicks * multiplier));
     const impressions = Math.max(100, Math.floor(baseImpressions * multiplier));
     const ctr = parseFloat(((clicks / impressions) * 100).toFixed(2));
+    const conversions = Math.max(1, Math.round(clicks * (0.06 + Math.random() * 0.08)));
     
     // Position improves slightly as clicks increase
     const position = parseFloat((12 + Math.random() * 4 - (clicks / 100)).toFixed(1));
@@ -33,18 +34,19 @@ export const generateMockData = (): DataPoint[] => {
       clicks,
       impressions,
       ctr,
-      position: Math.max(1, position)
+      position: Math.max(1, position),
+      conversions,
     });
   }
   return data;
 };
 
 export const topQueries: Query[] = [
-  { query: 'react dashboard template', clicks: 342, impressions: 2100, ctr: 16.2, position: 2.4 },
-  { query: 'tailwind css components', clicks: 215, impressions: 1850, ctr: 11.6, position: 4.1 },
-  { query: 'google search console api', clicks: 189, impressions: 3400, ctr: 5.5, position: 8.7 },
-  { query: 'seo analytics tool', clicks: 145, impressions: 980, ctr: 14.7, position: 3.5 },
-  { query: 'recharts line chart example', clicks: 112, impressions: 1200, ctr: 9.3, position: 5.2 },
-  { query: 'gemini ai integration', clicks: 98, impressions: 650, ctr: 15.0, position: 1.8 },
-  { query: 'frontend performance metrics', clicks: 76, impressions: 1100, ctr: 6.9, position: 11.3 },
+  { query: 'react dashboard template', clicks: 342, impressions: 2100, ctr: 16.2, position: 2.4, conversions: 28 },
+  { query: 'tailwind css components', clicks: 215, impressions: 1850, ctr: 11.6, position: 4.1, conversions: 20 },
+  { query: 'google search console api', clicks: 189, impressions: 3400, ctr: 5.5, position: 8.7, conversions: 17 },
+  { query: 'seo analytics tool', clicks: 145, impressions: 980, ctr: 14.7, position: 3.5, conversions: 12 },
+  { query: 'recharts line chart example', clicks: 112, impressions: 1200, ctr: 9.3, position: 5.2, conversions: 9 },
+  { query: 'gemini ai integration', clicks: 98, impressions: 650, ctr: 15.0, position: 1.8, conversions: 8 },
+  { query: 'frontend performance metrics', clicks: 76, impressions: 1100, ctr: 6.9, position: 11.3, conversions: 6 },
 ];
